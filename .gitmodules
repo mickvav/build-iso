@@ -264,3 +264,6 @@
 [submodule "pkgs/iputils"]
 	path = pkgs/iputils
 	url = https://github.com/vyos/iputils.git
+[submodule "pkgs/ipt-netflow-code"]
+	path = pkgs/ipt-netflow-code
+	url = https://github.com/mickvav/ipt-netflow-code
