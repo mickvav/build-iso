@@ -267,3 +267,6 @@
 [submodule "pkgs/ipt-netflow-code"]
 	path = pkgs/ipt-netflow-code
 	url = https://github.com/mickvav/ipt-netflow-code
+[submodule "pkgs/xtables-addons"]
+	path = pkgs/xtables-addons
+	url = https://github.com/mickvav/xtables-addons.git
