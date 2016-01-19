@@ -21,3 +21,7 @@ livecd/config.vyatta/binary_local-includes/isolinux/f8.txt
 livecd/config.vyatta/binary_local-includes/isolinux/f9.txt
 livecd/config.vyatta/binary_local-includes/isolinux/f10.txt
 livecd/mk.livecd.functions
+livecd/config.vyatta/chroot_local-includes/etc/live.conf
+livecd/templates/boot.txt.template
+livecd/templates/config.boot.default
+livecd/templates/isolinux.cfg
