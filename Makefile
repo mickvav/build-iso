@@ -41,6 +41,12 @@ mostlyclean :
 	@ipcs -q | awk '{print $$2}' | egrep [0-9] \
 		| xargs -L 1 ipcrm -q >/dev/null 2>&1 || /bin/true
 
+apply-locale : 
+	@tools/apply-locale patch
+
+unpatch-locale:
+	@tools/apply-locale unpatch
+
 .PHONY : clean
 clean :
 	@$(MAKE) mostlyclean
@@ -69,7 +75,7 @@ clean_debuilds: $(CLEAN_DEBS)
 	@echo DONE
 
 .PHONY: $(PACKAGE_DEBS)
-$(PACKAGE_DEBS):
+$(PACKAGE_DEBS): apply-locale
 	@case "$@" in pkgs/installer*|pkgs/linux-kernel-di*|"" )  true;; *) echo !!!!!$@!!!!!!!; cd $@; debuild -i -b -uc -us -nc;; esac
 
 .PHONY: $(CLEAN_DEBS)

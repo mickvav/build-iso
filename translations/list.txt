@@ -1,0 +1,7 @@
+pkgs/vyatta-cfg/etc/bash_completion.d/vyatta-cfg
+pkgs/vyatta-cfg/functions/interpreter/vyatta-cfg-run
+pkgs/vyatta-cfg/functions/wrapper/script-template
+pkgs/vyatta-cfg/config/ltmain.sh
+pkgs/vyatta-cfg/config/config.guess
+pkgs/vyatta-cfg/config/missing
+pkgs/vyatta-cfg/config/compile
