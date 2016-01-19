@@ -42,11 +42,15 @@ mostlyclean :
 		| xargs -L 1 ipcrm -q >/dev/null 2>&1 || /bin/true
 
 apply-locale : 
-	@tools/apply-locale patch
+	@./tools/apply-locale patch
 
 unpatch-locale:
-	@tools/apply-locale unpatch
+	@./tools/apply-locale unpatch
 
+generate-locale:
+	@./tools/apply-locale genlocale
+generate-patches:
+	@./tools/apply-locale genpatches
 .PHONY : clean
 clean :
 	@$(MAKE) mostlyclean
