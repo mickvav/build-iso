@@ -110,16 +110,16 @@ EOF
 
     echo vyatta-version ${NUMERIC_VERSION} >> $vf/deb-versions.txt
 
-    echo "Version:      VyOS ${NUMERIC_VERSION}" > $vf/version
+    echo "Version:      FwOS ${NUMERIC_VERSION}" > $vf/version
     echo "Description:  ${FULL_VERSION}" >> $vf/version
-    echo "Copyright:    ${CURYEAR} VyOS maintainers and contributors" >> $vf/version
+    echo "Copyright:    ${CURYEAR} VyOS maintainers and contributors FwOS maintainers and contributors" >> $vf/version
     ln -nsf version $vf/version-virt
 
     (
         echo "Package: vyatta-version"
         echo "Version: ${NUMERIC_VERSION}"
         echo "Architecture: ${arch}"
-        echo "Maintainer: VyOS Package Maintainers <maintainers@vyos.net>"
+        echo "Maintainer: FwOS Package Maintainers <maintainers@>"
         echo "Essential: no"
         echo "Section: base"
         echo "Replaces: vyatta-version, vc-version, vc2-version, devel-version, vyatta-cfg-system"
@@ -177,7 +177,7 @@ vyos-xen-pv-image ()
 
   # allocate loop device for file
   loop=$(losetup -f)
-  losetup $loop $XEN_IMAGE_DIR/vyos-xen-pv-$NUMERIC_VERSION-$arch.img || echo E: unable to allocate loop device
+  losetup $loop $XEN_IMAGE_DIR/fwos-xen-pv-$NUMERIC_VERSION-$arch.img || echo E: unable to allocate loop device
 
   # create filesystem
   mke2fs -j $loop
@@ -230,7 +230,7 @@ vyos-xen-pv-image ()
 	on_shutdown='destroy'
 	on_crash='destroy'
 	image_name='vyos-$NUMERIC_VERSION'
-	disk=['file:/var/xen/vyos-xen-pv-$NUMERIC_VERSION-$arch.img,$PV_BOOT_DEVICE,w']
+	disk=['file:/var/xen/fwos-xen-pv-$NUMERIC_VERSION-$arch.img,$PV_BOOT_DEVICE,w']
 	vcpus=1
 	memory=1024
 	EOF
@@ -264,10 +264,10 @@ vyos-xen-pv-image ()
   sed -i -e 's/speed 9600/speed 38400/' $XEN_IMAGE_DIR/pimage/opt/vyatta/etc/config.boot.default
   # set /etc/hostname
   rm -f $XEN_IMAGE_DIR/pimage/etc/hostname
-  echo vyos > $XEN_IMAGE_DIR/pimage/etc/hostname
+  echo fwos > $XEN_IMAGE_DIR/pimage/etc/hostname
   # set /etc/hosts
   rm -f $XEN_IMAGE_DIR/pimage/etc/hosts
-  echo 127.0.0.1 localhost vyos > $XEN_IMAGE_DIR/pimage/etc/hosts
+  echo 127.0.0.1 localhost fwos > $XEN_IMAGE_DIR/pimage/etc/hosts
   # set /etc/fstab
   rm -f $XEN_IMAGE_DIR/pimage/etc/fstab
   echo -e "/dev/$PV_BOOT_DEVICE\t/\text3\tdefaults\t0 1" > $XEN_IMAGE_DIR/pimage/etc/fstab
@@ -275,7 +275,7 @@ vyos-xen-pv-image ()
   clean_up_xen_pv_image
 
   echo I: compressing Xen PV image file
-  gzip $XEN_IMAGE_DIR/vyos-xen-pv-$NUMERIC_VERSION-$arch.img
+  gzip $XEN_IMAGE_DIR/fwos-xen-pv-$NUMERIC_VERSION-$arch.img
 }
 
 get_chroot_kernel_version ()

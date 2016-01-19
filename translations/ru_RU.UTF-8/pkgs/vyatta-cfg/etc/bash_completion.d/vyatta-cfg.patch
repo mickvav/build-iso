@@ -1,0 +1,303 @@
+*** pkgs/vyatta-cfg/etc/bash_completion.d/vyatta-cfg	2016-01-19 09:35:23.472250466 +0300
+--- translations/ru_RU.UTF-8/pkgs/vyatta-cfg/etc/bash_completion.d/vyatta-cfg	2016-01-19 09:27:38.836271182 +0300
+***************
+*** 160,171 ****
+      vyatta_config_complete "$@"
+      eval $restore_shopts
+      return
+    fi
+  
+!   echo -en "\nPossible completions:\n"
+!   echo -en "  <Enter>\tExecute the current command"
+    COMPREPLY=( "" " " )
+  
+    eval $restore_shopts
+  }
+  
+--- 160,171 ----
+      vyatta_config_complete "$@"
+      eval $restore_shopts
+      return
+    fi
+  
+!   echo -en "\nВозможные продолжения:\n"
+!   echo -en "  <Enter>\tЗапустить текущую команду"
+    COMPREPLY=( "" " " )
+  
+    eval $restore_shopts
+  }
+  
+***************
+*** 188,238 ****
+    # is not supported yet.
+    #
+    if [ $COMP_CWORD -eq 1 -a -z "${COMP_WORDS[1]}" ]; then
+        local command=$(vyatta_cfg_expand_top_level ${COMP_WORDS[0]})
+        echo
+!       echo "Possible completions:"
+        if [ "$command" = "load" ]; then
+! 	  echo -e "  <Enter>\t\t\t\tLoad from system config file"
+! 	  echo -e "  <file>\t\t\t\tLoad from file on local machine"
+! 	  echo -e "  scp://<user>:<passwd>@<host>/<file>\tLoad from file on remote machine"
+! 	  echo -e "  sftp://<user>:<passwd>@<host>/<file>\tLoad from file on remote machine"
+! 	  echo -e "  ftp://<user>:<passwd>@<host>/<file>\tLoad from file on remote machine"
+! 	  echo -e "  http://<host>/<file>\t\t\tLoad from file on remote machine"
+! 	  echo -e "  tftp://<host>/<file>\t\t\tLoad from file on remote machine"
+        elif [ "$command" = "merge" ]; then
+! 	  echo -e "  <Enter>\t\t\t\tMerge from system config file"
+! 	  echo -e "  <file>\t\t\t\tMerge from file on local machine"
+! 	  echo -e "  scp://<user>:<passwd>@<host>/<file>\tMerge from file on remote machine"
+! 	  echo -e "  sftp://<user>:<passwd>@<host>/<file>\tMerge from file on remote machine"
+! 	  echo -e "  ftp://<user>:<passwd>@<host>/<file>\tMerge from file on remote machine"
+! 	  echo -e "  http://<host>/<file>\t\t\tMerge from file on remote machine"
+! 	  echo -e "  tftp://<host>/<file>\t\t\tMerge from file on remote machine"
+        elif [ "$command" = "save" ]; then
+! 	  echo -e "  <Enter>\t\t\t\tSave to system config file"
+! 	  echo -e "  <file>\t\t\t\tSave to file on local machine"
+! 	  echo -e "  scp://<user>:<passwd>@<host>/<file>\tSave to file on remote machine"
+! 	  echo -e "  sftp://<user>:<passwd>@<host>/<file>\tSave to file on remote machine"
+! 	  echo -e "  ftp://<user>:<passwd>@<host>/<file>\tSave to file on remote machine"
+! 	  echo -e "  tftp://<host>/<file>\t\t\tSave to file on remote machine"
+        fi
+        COMPREPLY=( "" " " )
+    else
+!     echo -en "\nPossible completions:\n"
+!     echo -en "  <Enter>\tExecute the current command"
+      COMPREPLY=( "" " " )
+    fi
+  
+    eval $restore_shopts
+  }
+  
+  vyatta_config_loadkey()
+  {
+    # don't load if there are uncommitted changes.
+    if vyatta_cli_shell_api sessionChanged; then
+!     echo "Cannot load: configuration modified."
+!     echo "Commit or discard the changes before loading a config file."
+      return 1
+    fi
+    # return to top level.
+    reset_edit_level
+    ${vyatta_sbindir}/vyatta-load-user-key.pl "$@"
+--- 188,238 ----
+    # is not supported yet.
+    #
+    if [ $COMP_CWORD -eq 1 -a -z "${COMP_WORDS[1]}" ]; then
+        local command=$(vyatta_cfg_expand_top_level ${COMP_WORDS[0]})
+        echo
+!       echo "Возможные продолжения:"
+        if [ "$command" = "load" ]; then
+! 	  echo -e "  <Enter>\t\t\t\Загрузить из системного файла конфигурации"
+! 	  echo -e "  <file>\t\t\t\Загрузить из локального файла"
+! 	  echo -e "  scp://<user>:<passwd>@<host>/<file>\tЗагрузить с удаленной машины по scp"
+! 	  echo -e "  sftp://<user>:<passwd>@<host>/<file>\tЗагрузить с удаленной машины по sftp"
+! 	  echo -e "  ftp://<user>:<passwd>@<host>/<file>\tЗагрузить с удаленной машины по ftp"
+! 	  echo -e "  http://<host>/<file>\t\t\tЗагрузить с удаленной машины по http"
+! 	  echo -e "  tftp://<host>/<file>\t\t\tЗагрузить с удаленной машины по tftp"
+        elif [ "$command" = "merge" ]; then
+! 	  echo -e "  <Enter>\t\t\t\tОбъединить с системным файлом конфигурации"
+! 	  echo -e "  <file>\t\t\t\tОбъединить с системным локальным файлом"
+! 	  echo -e "  scp://<user>:<passwd>@<host>/<file>\tОбъединить с файлом с удаленной машины по scp"
+! 	  echo -e "  sftp://<user>:<passwd>@<host>/<file>\tОбъединить с файлом с удаленной машины по sftp"
+! 	  echo -e "  ftp://<user>:<passwd>@<host>/<file>\tОбъединить с файлом с удаленной машины по ftp"
+! 	  echo -e "  http://<host>/<file>\t\t\tОбъединить с файлом с удаленной машины по http"
+! 	  echo -e "  tftp://<host>/<file>\t\t\tОбъединить с файлом с удаленной машины по tftp"
+        elif [ "$command" = "save" ]; then
+! 	  echo -e "  <Enter>\t\t\t\tСохранить в системный конфигурационный файл"
+! 	  echo -e "  <file>\t\t\t\tСохранить в файл на локальной машине"
+! 	  echo -e "  scp://<user>:<passwd>@<host>/<file>\tСохранить в файл на удаленной машине по scp"
+! 	  echo -e "  sftp://<user>:<passwd>@<host>/<file>\tСохранить в файл на удаленной машине по sftp"
+! 	  echo -e "  ftp://<user>:<passwd>@<host>/<file>\tСохранить в файл на удаленной машине по ftp"
+! 	  echo -e "  tftp://<host>/<file>\t\t\tСохранить в файл на удаленной машине по tftp"
+        fi
+        COMPREPLY=( "" " " )
+    else
+!     echo -en "\nВозможные продолжения:\n"
+!     echo -en "  <Enter>\tЗапустить команду"
+      COMPREPLY=( "" " " )
+    fi
+  
+    eval $restore_shopts
+  }
+  
+  vyatta_config_loadkey()
+  {
+    # don't load if there are uncommitted changes.
+    if vyatta_cli_shell_api sessionChanged; then
+!     echo "Не могу загрузить - конфигурация изменена."
+!     echo "Фиксируйте (commit) или сбросьте (discard) изменения перед загрузкой новой конфигурации из файла."
+      return 1
+    fi
+    # return to top level.
+    reset_edit_level
+    ${vyatta_sbindir}/vyatta-load-user-key.pl "$@"
+***************
+*** 256,272 ****
+  	 else
+  	  COMPREPLY=( $(compgen -u -- ${COMP_WORDS[1]} ) )
+           fi ;;
+        2) if [ -z "${COMP_WORDS[2]}" ]; then
+  	  echo
+! 	  echo "Possible completions:"
+! 	  echo -e "  <file>\t\t\t\tLoad from file on local machine"
+! 	  echo -e "  scp://<user>@<host>/<file>\tLoad from file on remote machine"
+! 	  echo -e "  sftp://<user>@<host>/<file>\tLoad from file on remote machine"
+! 	  echo -e "  ftp://<user>@<host>/<file>\tLoad from file on remote machine"
+! 	  echo -e "  http://<host>/<file>\t\t\tLoad from file on remote machine"
+! 	  echo -e "  tftp://<host>/<file>\t\t\tLoad from file on remote machine"
+  	  COMPREPLY=( "" " " )
+  	 else
+  	  COMPREPLY=( $(compgen -f -- ${COMP_WORDS[2]} ) )
+  	 fi ;;
+    esac
+--- 256,272 ----
+  	 else
+  	  COMPREPLY=( $(compgen -u -- ${COMP_WORDS[1]} ) )
+           fi ;;
+        2) if [ -z "${COMP_WORDS[2]}" ]; then
+  	  echo
+!           echo "Возможные продолжения:"
+! 	  echo -e "  <file>\t\t\t\Загрузить из локального файла"
+! 	  echo -e "  scp://<user>:<passwd>@<host>/<file>\tЗагрузить с удаленной машины по scp"
+! 	  echo -e "  sftp://<user>:<passwd>@<host>/<file>\tЗагрузить с удаленной машины по sftp"
+! 	  echo -e "  ftp://<user>:<passwd>@<host>/<file>\tЗагрузить с удаленной машины по ftp"
+! 	  echo -e "  http://<host>/<file>\t\t\tЗагрузить с удаленной машины по http"
+! 	  echo -e "  tftp://<host>/<file>\t\t\tЗагрузить с удаленной машины по tftp"
+  	  COMPREPLY=( "" " " )
+  	 else
+  	  COMPREPLY=( $(compgen -f -- ${COMP_WORDS[2]} ) )
+  	 fi ;;
+    esac
+***************
+*** 299,316 ****
+  
+    # Only provide completions after command name has been typed, but
+    # before any characters of the command argument have been entered.
+    if [ $COMP_CWORD -eq 1 -a -z "${COMP_WORDS[1]}" ]; then
+        echo
+!       echo "Possible completions:"
+!       echo -e "  <N>\tRollback to revision N (currently requires reboot)"
+!       echo -e "\n  Revisions:"
+        print_commit_log
+        COMPREPLY=( "" " " )
+    else
+!       echo -en "\nPossible completions:\n"
+!       echo -en "  <Enter>\tExecute the current command"
+        COMPREPLY=( "" " " )
+    fi
+  
+    eval $restore_shopts
+  }
+--- 299,316 ----
+  
+    # Only provide completions after command name has been typed, but
+    # before any characters of the command argument have been entered.
+    if [ $COMP_CWORD -eq 1 -a -z "${COMP_WORDS[1]}" ]; then
+        echo
+!       echo "Возможные продолжения:"
+!       echo -e "  <N>\tОткатиться к версии N (в текущей версии требуется перезагрузка)"
+!       echo -e "\n  Версии:"
+        print_commit_log
+        COMPREPLY=( "" " " )
+    else
+!       echo -en "\nВозможные продолжения:\n"
+!       echo -en "  <Enter>\tЗапустить команду"
+        COMPREPLY=( "" " " )
+    fi
+  
+    eval $restore_shopts
+  }
+***************
+*** 342,386 ****
+    # Only provide completions after command name has been typed, but
+    # before any characters of the command argument have been entered.
+    if [ $COMP_CWORD -eq 1 -a -z "${COMP_WORDS[1]}" ] ||
+       [ $COMP_CWORD -eq 1 -a -z "$current_prefix" ]; then
+        echo
+!       echo "Possible completions:"
+!       echo -e "  <Enter>\tCompare working & active configurations"
+!       echo -e "  saved\t\tCompare working & saved configurations"
+!       echo -e "  <N>\t\tCompare working with revision N"
+!       echo -e "  <N> <M>\tCompare revision N with M"
+!       echo -e "\n  Revisions:"
+        print_commit_log
+        COMPREPLY=( "" " " )
+    elif [[ -n "$current_prefix" ]]  && 
+         [[ "saved" =~ "$current_prefix" ]] &&
+         [[ $COMP_CWORD -eq 1 ]]; then
+        COMPREPLY=( "saved " )
+        eval $restore_shopts
+        return
+    elif [ $COMP_CWORD -eq 2 -a -z "${COMP_WORDS[2]}" ]; then
+        if [[ "saved" =~ "${COMP_WORDS[1]}" ]]; then
+!         echo -e "\nPossible completions:"
+!         echo -en "  <Enter>\tCompare working and saved configurations"
+          COMPREPLY=( "" " " )
+          eval $restore_shopts
+          return
+        fi
+        echo
+!       echo "Possible completions:"
+!       echo -e "  <Enter>\tCompare working revision N"
+!       echo -e "  <M>\t\tCompare revision N with M"
+!       echo -e "\n  Revisions:"
+        print_commit_log
+        COMPREPLY=( "" " " )
+    elif [ $COMP_CWORD -eq 1 ] &&
+         [[ -n "$current_prefix" ]]; then
+        COMPREPLY=( "$current_prefix " )
+    else
+!       echo -en "\nPossible completions:\n"
+!       echo -en "  <Enter>\tExecute the current command"
+        COMPREPLY=( "" " " )
+    fi
+  
+    eval $restore_shopts
+  }
+--- 342,386 ----
+    # Only provide completions after command name has been typed, but
+    # before any characters of the command argument have been entered.
+    if [ $COMP_CWORD -eq 1 -a -z "${COMP_WORDS[1]}" ] ||
+       [ $COMP_CWORD -eq 1 -a -z "$current_prefix" ]; then
+        echo
+!       echo "Возможные продолжения:"
+!       echo -e "  <Enter>\tСравнить измененную и активную конфигурации"
+!       echo -e "  saved\t\tСравнить измененную и сохраненную конфигурации"
+!       echo -e "  <N>\t\tСравнить измененную конфигурацию с версией N"
+!       echo -e "  <N> <M>\tСравнить версии N и M"
+!       echo -e "\n  Версии:"
+        print_commit_log
+        COMPREPLY=( "" " " )
+    elif [[ -n "$current_prefix" ]]  && 
+         [[ "saved" =~ "$current_prefix" ]] &&
+         [[ $COMP_CWORD -eq 1 ]]; then
+        COMPREPLY=( "saved " )
+        eval $restore_shopts
+        return
+    elif [ $COMP_CWORD -eq 2 -a -z "${COMP_WORDS[2]}" ]; then
+        if [[ "saved" =~ "${COMP_WORDS[1]}" ]]; then
+!         echo -e "\nВозможные продолжения:"
+!         echo -en "  <Enter>\tСравнить измененную и сохраненную конфигурации"
+          COMPREPLY=( "" " " )
+          eval $restore_shopts
+          return
+        fi
+        echo
+!       echo "Возможные продолжения:"
+!       echo -e "  <Enter>\tСравнить измененную конфигурацию с версией N"
+!       echo -e "  <M>\t\tСравнить версии N и M"
+!       echo -e "\n  Версии:"
+        print_commit_log
+        COMPREPLY=( "" " " )
+    elif [ $COMP_CWORD -eq 1 ] &&
+         [[ -n "$current_prefix" ]]; then
+        COMPREPLY=( "$current_prefix " )
+    else
+!       echo -en "\nВозможные продолжения:\n"
+!       echo -en "  <Enter>\tЗапустить команду"
+        COMPREPLY=( "" " " )
+    fi
+  
+    eval $restore_shopts
+  }

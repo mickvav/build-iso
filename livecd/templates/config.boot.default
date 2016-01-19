@@ -1,8 +1,8 @@
 system {
     login {
-        user vyos {
+        user fwos {
             authentication {
-                encrypted-password $6$QxPS.uk6mfo$9QBSo8u1FkH16gMyAVhus6fU3LOzvLR9Z9.82m3tiHFAxTtIkhaZSWssSgzt4v4dGAL8rhVQxTg0oAG9/q11h/
+                encrypted-password $6$bI2cuXTK$WcKRtNqu43cGKFiDF.6EyasUwk8Tckx/P76UL18GDvIYSybLu6LSiz1Lt2Hfd2FW75F0TIcYSrhFZIsTFxOPl0
                 plaintext-password ""
             }
             level admin
