@@ -50,7 +50,7 @@ for p in ../pkgs/*.deb; do
 done
 
 echo I: building bootstrap
-if ! lh bootstrap; then
+if ! lb bootstrap; then
   echo E: bootstrap build failed
   exit 1
 fi
@@ -62,7 +62,7 @@ echo "I: It's not like I'm building this specially for you or anything"
 (rm -f chroot/dev/random && mknod -m 666 chroot/dev/random c 1 9) || true
 
 echo I: building chroot
-if ! lh chroot; then
+if ! lb chroot; then
   echo E: chroot build failed
   exit 1
 fi
@@ -119,7 +119,7 @@ if eval "$create_xen_pv_image"; then
 fi
 
 echo I: building binary
-if ! lh binary ; then
+if ! lb binary ; then
   echo E: binary build failed
   exit 1
 fi

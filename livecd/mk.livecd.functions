@@ -338,7 +338,7 @@ set_up_lh_config ()
   echo "I: Using VyOS package mirror $dev_repo_root"
 
   # prepare the config files for live helper
-  lh config
+  lb config
   (
     cd config.vyatta
     cp -af binary_local-includes chroot_apt chroot_local-hooks \
