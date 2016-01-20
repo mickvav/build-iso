@@ -1,0 +1,96 @@
+#!/bin/bash
+my_locale=$LANG
+
+if [ -f .locale ]; then
+  my_locale=`cat .locale`
+fi  
+export my_locale
+if [ "$1" = "" ]; then
+   echo "Usage: 
+   apply-locale [patch|unpatch|genlocale|genpatches]
+      patch - apply patches to localize packages from translation/ directory
+      unpatch - revert patches
+      genlocale - generate locale tree
+      genpatches - generate patches from locale tree for current locale
+   
+      locale is taken from \$LANG environment variable. 
+      can be overwritten by contents of .locale file
+      Current setting is $my_locale "
+
+elif [ "$1" = "patch" ]; then
+  if [ -d translations/$my_locale ]; then
+    echo "allpying locale $my_locale"
+    cat translations/list.txt | (while read a; do
+      if [ -f "$a" ]; then 
+        if [ -f "translations/$my_locale/${a}.patch" ]; then
+           patch $a "translations/$my_locale/${a}.patch"
+           exit $?
+        else
+           echo "translations/$my_locale/${a}.patch not found"
+        fi
+      else
+        echo "N.B. $a not found. Skipping."
+      fi
+    done);
+  else
+    echo "translation for locale $my_locale not found"
+  fi
+elif [ "$1" = "unpatch" ]; then
+  if [ -d translations/$my_locale ]; then
+    echo "reverting locale $my_locale"
+    cat translations/list.txt | (while read a; do
+      if [ -f "$a" ]; then 
+        if [ -f "translations/$my_locale/${a}.patch" ]; then
+           patch -R "$a" "translations/$my_locale/${a}.patch"
+           exit $?
+        else
+           echo "translations/$my_locale/${a}.patch not found"
+        fi
+      else
+        echo "N.B. $a not found. Skipping."
+      fi
+    done);
+
+  else
+    echo "translation for locale $my_locale not found"
+  fi
+elif [ "$1" = "genlocale" ]; then 
+  if [ -d translations/$my_locale ]; then
+    echo "N.B. translation for $my_locale already exists. Refreshing"
+  else
+    if mkdir translations/$my_locale ; then
+      echo "Creating new translation for $my_locale"
+    else
+      echo "Can't create new translation for $my_locale . Exiting"
+      exit 1
+    fi
+  fi
+  cat  translations/list.txt | (while read a; do
+    if [ -f "translations/$my_locale/$a" ]; then
+      echo "translations/$my_locale/$a already exists. NOT FETCHED."
+    else
+      d=`dirname "$a"`
+      mkdir -p "translations/$my_locale/$d"
+      cp "$a" "translations/$my_locale/$a" 
+    fi
+  done)
+elif [ "$1" = "genpatches" ]; then
+  if [ -d translations/$my_locale ]; then
+    cat translations/list.txt | (while read a; do
+      if [ ! -f "$a" ]; then
+        echo "$a not found. Consider fetching sources. Can't continue"
+        exit 1
+      fi
+      if [ -f "translations/$my_locale/$a" ]; then 
+         diff -c5 -r "$a" "translations/$my_locale/$a" > "translations/$my_locale/${a}.patch"
+      else
+         echo "translations/$my_locale/$a not found"
+         echo "Consider running with genlocale option"
+      fi
+    done)
+    exit $?
+  else
+    echo "translations/$my_locale not found"
+    exit 1
+  fi
+fi

@@ -1,8 +1,8 @@
-                  0fWelcome to VyOS!07                                09F107
+                  0fWelcome to FwOS!07                                09F107
 
-This is a VyOS installation CD-ROM.
+This is a FwOS installation CD-ROM.
 
-To install VyOS, login with user "vyos" and password "vyos",
+To install FwOS, login with user "fwos" and password "fwos",
 then enter "install image" command.
 
 0fHELP INDEX07
@@ -10,7 +10,7 @@ then enter "install image" command.
 0fKEY    TOPIC07
 
 <09F107>   This page, the help index.
-<09F207>   Prerequisites for installing VyOS.
+<09F207>   Prerequisites for installing FwOS.
 <09F307>   Boot methods for special ways of using this CD-ROM
 <09F407>   Additional boot methods; rescue mode.
 <09F507>   Special boot parameters, overview.

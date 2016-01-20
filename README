@@ -350,6 +350,14 @@ Changes
 
     2. Fork the submodule on github and make pull request.
 
+Locale system
+
+    1. make sure your LANG environment variable contains wanted locale (for russian - ru_RU.UTF8)
+    2. make generate-locale
+    3. translate all files in translations/(your locale)/... as necessary
+    4. make generate-patches
+    5. git add translations/(your-locale)
+    
 Updates using git
 
     Update the super-module.
