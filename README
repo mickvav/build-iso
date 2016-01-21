@@ -259,6 +259,9 @@ Build Host Setup for Building Submodules
     * conntrack-tools
         Requires libnetfilter-conntrack, libnetfilter-cttimeout, libnetfilter-cthelper,
         libnetfilter-queue. Build and install these first.
+    * ipt-netflow-code
+        Requires first rebuild kernel, than rebuild vyos-iptables, than install 
+        vyos-iptables on build host.
 
     The alternative to building those dependencies from source is to install them from
     the VyOS repository, http://packages.vyos.net/vyos/ (set distribution to the current
