@@ -270,3 +270,6 @@
 [submodule "pkgs/accel-ppp"]
 	path = pkgs/accel-ppp
 	url = https://github.com/mickvav/accel-ppp.git
+[submodule "pkgs/vyatta-accel-ppp"]
+	path = pkgs/vyatta-accel-ppp
+	url = https://github.com/mickvav/vyatta-accel-ppp.git
