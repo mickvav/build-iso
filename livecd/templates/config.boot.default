@@ -1,8 +1,8 @@
 system {
     login {
-        user fwos {
+        user vyatta {
             authentication {
-                encrypted-password $6$bI2cuXTK$WcKRtNqu43cGKFiDF.6EyasUwk8Tckx/P76UL18GDvIYSybLu6LSiz1Lt2Hfd2FW75F0TIcYSrhFZIsTFxOPl0
+                encrypted-password $6$mt0ppLGe$7voPShasPUrFc7fEl4U3O8YcuPKwDECCyGK97R/KrnTWcA/PM/zIWS735EvyMwPc3WeDapC2rVu5Hd/R5dmBG/
                 plaintext-password ""
             }
             level admin
@@ -31,6 +31,46 @@ system {
     config-management {
         commit-revisions 100
     }
+    package {
+        auto-sync 1
+        repository debian-security {
+            components main
+            distribution squeeze/updates
+            password ""
+            url http://security.debian.org/debian-security
+            username ""
+        }
+        repository debian-stable {
+            components main
+            distribution stable
+            password ""
+            url http://ftp.ru.debian.org/debian
+            username ""
+        }
+        repository debian-squeeze-lts {
+            components main
+            distribution squeeze-lts
+            password ""
+            url http://http.debian.net/debian
+            username ""
+        }
+        repository debian-stable-updates {
+            components main
+            distribution stable-updates
+            password ""
+            url http://ftp.ru.debian.org/debian
+            username ""
+        }
+        repository wheezy-updates {
+            components "main contrib non-free"
+            distribution wheezy/updates
+            password ""
+            url http://security.debian.org/
+            username ""
+        }
+    }
+
+
 }
 
 interfaces {
