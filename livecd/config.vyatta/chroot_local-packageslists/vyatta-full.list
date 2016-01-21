@@ -1,3 +1,6 @@
+accel-ppp
+ipt-netflow-code
+vyatta-accel-ppp
 conntrack
 conntrackd
 conntrack-helpers
@@ -115,5 +118,9 @@ vyatta-zone
 vyos-nhrp
 vyos-opennhrp
 vyos-pppoe-server
+vim
+traceroute
+cvs
+git
 wget
 wpasupplicant
