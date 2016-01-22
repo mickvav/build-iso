@@ -1,15 +1,18 @@
 
 *************************************************************
 
- Welcome to FwOS, an open source network operating system!
-                                                          
+ Welcome to VyOS, an open source network operating system!
+ Linkintel build. 
+                                                         
  Version: __VERSION__
                                                           
- Default login:    fwos
- Default password: fwos
+ Default login:    vyatta
+ Default password: vyatta
 
  To start installation, login and use command:
      install image
+ If you want to add packages later, install by:
+     install system
 
  For additional information visit http://www.vyos.net
 
